@@ -1,7 +1,8 @@
-import express from "express"
-import mongoConnection from "./db.js";
-import router from "./routes/Lists.js"
-import cors from "cors"
+const express = require("express");
+const cors = require("cors");
+const mongoConnection = require("./db.js");
+const router = require("./routes/Lists.js");
+mongoConnection();
 
 const app = express();
 const port = 5000;
@@ -9,12 +10,11 @@ const port = 5000;
 app.use(express.json())
 app.use(cors())
 
-mongoConnection();
 
 app.use("/api/tasks", router);
 
-app.get("/", (req, res)=>{
-    res.send("hi")
+app.get("", (req, res)=>{
+    res.send("API is Working 😋");
 })
 
 app.listen(port, () => {

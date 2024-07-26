@@ -1,5 +1,5 @@
-import express from "express";
-import listModel from "../models/List.js"
+const express = require("express");
+const listModel = require("../models/List.js");
 
 const router = express.Router();
 
@@ -59,5 +59,4 @@ router.delete("/delete/:id", async (req, res)=>{
     }
 })
 
-
-export default router
+module.exports = router;
