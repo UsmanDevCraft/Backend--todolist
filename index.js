@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mongoConnection = require("./db.js");
-const router = require("./routes/Lists.js");
 mongoConnection();
 
 const app = express();
@@ -11,7 +10,7 @@ app.use(express.json())
 app.use(cors())
 
 
-app.use("/api/tasks", router);
+app.use("/api/tasks", require("./routes/Lists"));
 
 app.get("", (req, res)=>{
     res.send("API is Working 😋");
