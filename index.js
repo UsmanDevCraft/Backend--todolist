@@ -4,7 +4,7 @@ const mongoConnection = require("./db.js");
 mongoConnection();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(express.json());
 
@@ -30,5 +30,5 @@ app.get("", (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running fine on http://localhost:${port}`);
+    console.log(`Server is running fine on port ${port}`);
 });
