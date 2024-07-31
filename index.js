@@ -8,9 +8,9 @@ const port = 5000;
 
 app.use(express.json())
 app.use(cors({
-    origin: 'https://todo-list-taupe-seven-56.vercel.app', // Allow only your frontend origin
-    methods: 'GET,POST,PUT,DELETE', // Specify allowed methods
-    credentials: true // If you need to include cookies in requests
+    origin: 'https://todo-list-taupe-seven-56.vercel.app',
+    methods: 'GET,POST,PUT,DELETE',
+    credentials: true,
 }));
   
 
