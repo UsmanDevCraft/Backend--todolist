@@ -11,6 +11,7 @@ app.use(cors())
 
 
 app.use("/api/tasks", require("./routes/Lists"));
+app.use("/api/auth", require("./routes/auth"));
 
 app.get("", (req, res)=>{
     res.send("API is Working 😋");

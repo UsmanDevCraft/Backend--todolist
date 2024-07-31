@@ -1,14 +1,16 @@
 const express = require("express");
 const listModel = require("../models/List.js");
+const fetchuser = require("../middleware/fetchuser.js");
 
 const router = express.Router();
 
 //Endpoint for creating a Todo task
-router.post("/create", async (req, res)=>{
+router.post("/create", fetchuser ,async (req, res)=>{
     try {
         const listWork = new listModel({
             title: req.body.title,
             description: req.body.description,
+            user: req.user.id,
         })
         const savedTask = await listWork.save()
         res.send(savedTask);
@@ -19,9 +21,9 @@ router.post("/create", async (req, res)=>{
 
 
 //Endpoint for fetching all Todo tasks
-router.get("/fetchall", async (req, res) => {
+router.get("/fetchall", fetchuser ,async (req, res) => {
     try {
-        const fetchTasks = await listModel.find();
+        const fetchTasks = await listModel.find({user: req.user.id});
         res.send(fetchTasks);
     } catch (error) {
         res.status(404).send("Tasks not found!")
@@ -30,7 +32,7 @@ router.get("/fetchall", async (req, res) => {
 
 
 //Endpoint for updating a Todo task
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", fetchuser ,async (req, res) => {
     try {
         const id = req.params.id;
         const { title, description } = req.body;
@@ -46,7 +48,7 @@ router.put("/update/:id", async (req, res) => {
 
 
 //Endpoint for deleting a Todo task
-router.delete("/delete/:id", async (req, res)=>{
+router.delete("/delete/:id", fetchuser ,async (req, res)=>{
     try {
         const id = req.params.id;
         const taskDelete = await listModel.findByIdAndDelete(id);
