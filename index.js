@@ -1,35 +1,41 @@
 const express = require("express");
 const cors = require("cors");
 const mongoConnection = require("./db.js");
+
+// Connect to the database
 mongoConnection();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Middleware for JSON parsing
 app.use(express.json());
-app.use(cors());
 
-// Apply CORS middleware globally
-// app.use(cors({
-//     origin: 'https://todo-list-taupe-seven-56.vercel.app', // Allow only your frontend origin
-//     methods: 'GET,POST,PUT,DELETE,OPTIONS', // Specify allowed methods
-//     credentials: true, // If you need to include cookies in requests
-// }));
+// CORS configuration
+app.use(cors({
+    origin: 'https://mern-stack-todo-list-eta.vercel.app',
+    methods: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+    allowedHeaders: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+    credentials: true
+}));
 
-// // Handle preflight requests
-// app.options('*', cors({
-//     origin: 'https://todo-list-taupe-seven-56.vercel.app', // Allow only your frontend origin
-//     methods: 'GET,POST,PUT,DELETE,OPTIONS', // Specify allowed methods
-//     credentials: true, // If you need to include cookies in requests
-// }));
+// Middleware to set timeout for requests
+app.use((req, res, next) => {
+    req.setTimeout(5000); // 5 seconds
+    res.setTimeout(5000); // 5 seconds
+    next();
+});
 
+// Define routes
 app.use("/api/tasks", require("./routes/Lists"));
 app.use("/api/auth", require("./routes/auth"));
 
-app.get("", (req, res) => {
+// Health check endpoint
+app.get("/", (req, res) => {
     res.send("API is Working 😋");
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server is running fine on port ${port}`);
 });
