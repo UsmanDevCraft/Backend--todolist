@@ -10,14 +10,7 @@ const port = process.env.PORT || 5000;
 
 // Middleware for JSON parsing
 app.use(express.json());
-
-// CORS configuration
-app.use(cors({
-    origin: 'https://mern-stack-todo-list-eta.vercel.app',
-    methods: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-    allowedHeaders: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
-    credentials: true
-}));
+app.use(cors())
 
 // Middleware to set timeout for requests
 app.use((req, res, next) => {
