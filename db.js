@@ -1,12 +1,11 @@
+require('dotenv').config();
 const mongoose = require("mongoose");
 
-
-const mongoDbURL = "mongodb+srv://izzakhan8357:maniking@clustertodolist.lwl18sb.mongodb.net/todo-list?retryWrites=true&w=majority&appName=ClusterTodoList";
+const mongoDbURL = process.env.MONGODB_URL;
+console.log(process.env.MONGODB_URL)
 
 const mongoConnection = () => {
-    mongoose.connect(mongoDbURL)
-        .then(() => console.log("MongoDB connected"))
-        .catch((err) => console.log("MongoDB connection error: ", err));
+    mongoose.connect(process.env.MONGODB_URL)
 }
 
 module.exports = mongoConnection;
