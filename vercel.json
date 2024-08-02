@@ -11,5 +11,13 @@
       "src": "/(.*)",
       "dest": "/index.js"
     }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "https://mern-stack-todo-list-eta.vercel.app" }
+      ]
+    }
   ]
 }
